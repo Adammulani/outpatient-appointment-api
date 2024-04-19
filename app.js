@@ -24,6 +24,25 @@ const availability = {
 };
 
 
+// to store all booked appointments with doctor id, day and time
+const appointments = [];
+
+// Endpoint to list all doctors with id, name and specialization
+app.get('/doctors', (req, res) => {
+    res.json(doctors);
+});
+
+// Endpoint to get details of a specific doctor, need to provide id of doctor
+app.get('/doctor/:doctorId', (req, res) => {
+    const doctorId = parseInt(req.params.doctorId);
+    const doctor = doctors.find(doctor => doctor.id === doctorId);
+    if (doctor) {
+        res.json(doctor);
+    } else {
+        res.status(404).json({ error: "Doctor not found" });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
