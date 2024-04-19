@@ -43,6 +43,14 @@ app.get('/doctor/:doctorId', (req, res) => {
     }
 });
 
+// Endpoint to check all the available of specific doctor for appointment to book
+app.get('/doctor/:doctorId/availability', (req, res) => {
+    const doctorId = parseInt(req.params.doctorId);
+    const doctorAvailability = availability[doctorId] || {};
+    res.json(doctorAvailability);
+});
+
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
