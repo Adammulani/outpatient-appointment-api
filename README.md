@@ -8,6 +8,10 @@ This Node.js & Express API provides endpoints for managing outpatient appointmen
 2. Install dependencies with `npm install`.
 3. Start the server with `node app.js`.
 
+## Access Live
+https://outpatient-appointment-api-adam.up.railway.app/
+This is default Endpoint
+
 ## Endpoints
 
 - `GET /doctors`: Get a list of all doctors.
