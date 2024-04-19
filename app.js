@@ -28,6 +28,10 @@ const availability = {
 const appointments = [];
 
 // Endpoint to list all doctors with id, name and specialization
+app.get('/', (req, res) => {
+    res.json({ defaultMessage: "  GET /doctors: Get a list of all doctors.      GET /doctor/:doctorId: Get details of a specific doctor.    GET /doctor/:doctorId/availability: Check availability for a specific doctor.    POST /doctor/:doctorId/book-appointment: Book an appointment for a specific doctor."  });
+});
+// Endpoint to list all doctors with id, name and specialization
 app.get('/doctors', (req, res) => {
     res.json(doctors);
 });
