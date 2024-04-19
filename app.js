@@ -28,7 +28,7 @@ const availability = {
 const appointments = [];
 
 // Default Endpoint
-app.get('/doctors', (req, res) => {
+app.get('/', (req, res) => {
     res.json({ defaultMessage: "Endpoints
 GET /doctors: Get a list of all doctors.
 GET /doctor/:doctorId: Get details of a specific doctor.
