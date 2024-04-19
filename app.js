@@ -56,6 +56,10 @@ app.post('/doctor/:doctorId/book-appointment', (req, res) => {
     const doctorId = parseInt(req.params.doctorId);
     const { day, time } = req.body;
 
+     // Check if day is Sunday
+     if (day==="Sunday") {
+        return res.status(400).json({ error: "Appointments cannot be booked on Sunday" });
+    }
     
 
     // Check if day and time are provided
