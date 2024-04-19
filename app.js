@@ -51,6 +51,51 @@ app.get('/doctor/:doctorId/availability', (req, res) => {
 });
 
 
+// Endpoint to book an appointment
+app.post('/doctor/:doctorId/book-appointment', (req, res) => {
+    const doctorId = parseInt(req.params.doctorId);
+    const { day, time } = req.body;
+
+    
+
+    // Check if day and time are provided
+    if (!day || !time) {
+        return res.status(400).json({ error: "Both day and time must be provided" });
+    }
+
+    // Check if the doctor exists
+    const doctor = doctors.find(doctor => doctor.id === doctorId);
+    if (!doctor) {
+        return res.status(404).json({ error: "Doctor not found" });
+    }
+
+    // Check if the provided day is valid
+    const doctorAvailability = availability[doctorId] || {};
+    const availableDays = Object.keys(doctorAvailability);
+    if (!availableDays.includes(day)) {
+        return res.status(400).json({ error: "Requested day is not available" });
+    }
+
+    // Check if the provided time slot is available on the requested day
+    const availableTimes = doctorAvailability[day];
+    if (!availableTimes.includes(time)) {
+        return res.status(400).json({ error: "Requested time slot is not available on the requested day" });
+    }
+
+    // Remove the booked time slot from availability so that is is no longer available to book
+     if (availability[doctorId] && availability[doctorId][day]) {
+    const index = availability[doctorId][day].indexOf(time);
+    if (index !== -1) {
+        availability[doctorId][day].splice(index, 1);
+    }
+   }
+
+
+    // Book the appointment
+    appointments.push({ doctorId, day, time });
+    res.json({ message: "Appointment booked successfully" });
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
